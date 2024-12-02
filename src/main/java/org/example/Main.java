@@ -4,35 +4,30 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        // Produkte werden initialisiert
+        Product product1 = new Product(1, "banane");
+        Product product2 = new Product(2, "apple");
+        Product product3 = new Product(3, "orange");
+        Product product4 = new Product(4, "kiwi");
 
-        Product organge = new Product(1,"Orange");
-        Product apple = new Product(2,"Apple");
-        Product banana = new Product(3,"Banana");
-
+        // ProductRepo wird initialisiert
         ProductRepo productRepo = new ProductRepo();
 
-        productRepo.addProduct(organge);
-        productRepo.addProduct(apple);
-        productRepo.addProduct(banana);
+        // Produkte werden ProductRepo hinzugefügt
+        productRepo.addProduct(product1);
+        productRepo.addProduct(product2);
+        productRepo.addProduct(product3);
 
-        productRepo.printAllProducts();
-        productRepo.removeProduct(organge);
-        productRepo.printAllProducts();
+        // OrderRepo wird initialisiert
+        OrderRepo orderRepo = new OrderMapRepo();
 
-        System.out.println("-".repeat(20));
+        // ShopService wird mit ausgewähltem Repo erstellt
+        ShopService shopService = new ShopService(orderRepo);
 
-        Order order1 = new Order(1, apple);
-        Order order2 = new Order(2, banana);
-
-        OrderListRepo orderListRepo = new OrderListRepo();
-        orderListRepo.addOrder(order1);
-        orderListRepo.addOrder(order2);
-
-        System.out.println(orderListRepo.getAllOrders());
-        System.out.println(orderListRepo.getSingleOrder(1));
-
-
-
+        // Bestellungen werden aufgegeben
+        shopService.placeOrder(1, product1);
+        shopService.placeOrder(2, product2);
+        shopService.placeOrder(3, product4);
 
     }
 }

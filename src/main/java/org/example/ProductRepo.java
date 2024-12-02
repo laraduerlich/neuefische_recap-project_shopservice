@@ -5,28 +5,33 @@ import java.util.List;
 import java.util.Objects;
 
 public class ProductRepo {
+    // Erstellung der Produkt Liste
     static List<Product> products = new ArrayList<>();
 
+    // Hinzufügen eines Produktes
     public void addProduct(Product product) {
         products.add(product);
     }
 
+    // Entfernen eines Produktes
     public void removeProduct(Product product) {
         products.remove(product);
     }
 
+    // Abfrage ob ein Produkt in der Liste enthalten ist
     public static boolean containsProduct(Product product) {
         return products.contains(product);
     }
 
-    public void printAllProducts() {
-        for (Product product : products) {
-            System.out.println(product);
-        }
+    // Ausgabe alle Produkte
+    public List<Product> getAllProducts() {
+        return products;
     }
 
-    public void printProduct(Product product) {
-        System.out.println(product);
+    // Ausgabe eines Produktes
+    public Product getProduct(int id) {
+        Product product = products.get(id);
+        return product;
     }
 
     @Override
