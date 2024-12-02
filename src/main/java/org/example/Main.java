@@ -18,5 +18,7 @@ public class Main {
         productRepo.printAllProducts();
 
         System.out.println("-".repeat(20));
+
+        System.out.println(productRepo.containsProduct(organge));
     }
 }

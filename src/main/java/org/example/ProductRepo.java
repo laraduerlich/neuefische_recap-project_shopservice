@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ProductRepo {
-    List<Product> products = new ArrayList<>();
+    static List<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
         products.add(product);
@@ -13,6 +13,10 @@ public class ProductRepo {
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    public static boolean containsProduct(Product product) {
+        return products.contains(product);
     }
 
     public void printAllProducts() {
