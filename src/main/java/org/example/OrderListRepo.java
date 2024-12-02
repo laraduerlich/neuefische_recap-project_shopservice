@@ -15,15 +15,15 @@ public class OrderListRepo {
         orders.remove(order);
     }
 
-    public void printOrder(Order order) {
-        System.out.println(order);
+    public List<Order> getAllOrders() {
+        return orders;
     }
 
-    public void printAllOrders() {
-        for (Order order : orders) {
-            System.out.println(order);
-        }
+    public Order getSingleOrder(int id) {
+        Order singleOrder = orders.get(id);
+        return singleOrder;
     }
+
 
     @Override
     public boolean equals(Object o) {

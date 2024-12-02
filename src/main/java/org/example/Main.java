@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -19,6 +21,18 @@ public class Main {
 
         System.out.println("-".repeat(20));
 
-        System.out.println(productRepo.containsProduct(organge));
+        Order order1 = new Order(1, apple);
+        Order order2 = new Order(2, banana);
+
+        OrderListRepo orderListRepo = new OrderListRepo();
+        orderListRepo.addOrder(order1);
+        orderListRepo.addOrder(order2);
+
+        System.out.println(orderListRepo.getAllOrders());
+        System.out.println(orderListRepo.getSingleOrder(1));
+
+
+
+
     }
 }
