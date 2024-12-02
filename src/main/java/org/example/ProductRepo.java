@@ -28,12 +28,6 @@ public class ProductRepo {
         return products;
     }
 
-    // Ausgabe eines Produktes
-    public Product getProduct(int id) {
-        Product product = products.get(id);
-        return product;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
