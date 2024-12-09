@@ -3,6 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ProductRepo {
     // Erstellung der Produkt Liste
@@ -29,14 +30,14 @@ public class ProductRepo {
         }
     }
 
-    // Abfrage ob ein Produkt in der Liste enthalten ist
-    public Product getProductById(String id) {
+    // Abfrage ob ein Produkt in der Liste enthalten ist mit Rückgabe eines Optionals
+    public Optional<Product> getProductById(String id) {
         for (Product product : products) {
             if (product.id().equals(id)) {
-                return product;
+                return Optional.of(product);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     // Ausgabe alle Produkte
