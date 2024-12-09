@@ -10,7 +10,7 @@ public class ShopService {
     private OrderRepo orderRepo = new OrderMapRepo();
     private ProductRepo productRepo = new ProductRepo();
 
-    // Hinzufügen einer Bestellung
+    // Hinzufügen einer Bestellung mit Check einer Exception
     public Order addOrder(List<String> productIds) throws ProductNotAvailableException {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {

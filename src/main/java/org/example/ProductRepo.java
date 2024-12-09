@@ -30,7 +30,7 @@ public class ProductRepo {
         }
     }
 
-    // Abfrage ob ein Produkt in der Liste enthalten ist
+    // Abfrage ob ein Produkt in der Liste enthalten ist mit Rückgabe eines Optionals
     public Optional<Product> getProductById(String id) {
         for (Product product : products) {
             if (product.id().equals(id)) {
