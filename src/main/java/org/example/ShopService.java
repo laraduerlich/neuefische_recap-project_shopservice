@@ -1,5 +1,6 @@
 package org.example;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public class ShopService {
     private OrderRepo orderRepo = new OrderMapRepo();
     private ProductRepo productRepo = new ProductRepo();
 
-    // Hinzufügen einer Bestellung mit Check einer Exception
+    // Hinzufügen einer Bestellung mit Check einer Exception und Instant Timestamp
     public Order addOrder(List<String> productIds) throws ProductNotAvailableException {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {
@@ -18,8 +19,8 @@ public class ShopService {
             Product productToOrder = databaseProductToOrder.orElseThrow(() -> new ProductNotAvailableException(productId));
             products.add(productToOrder);
         }
-
-        Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING);
+        Instant now = Instant.now();
+        Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING, now);
 
         return orderRepo.addOrder(newOrder);
     }
