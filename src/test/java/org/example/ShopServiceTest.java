@@ -13,14 +13,15 @@ class ShopServiceTest {
         //GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1");
-        Order expected = new Order("-1", List.of(new Product("1", "Apfel")), OrderStatus.PROCESSING);
+        Order expected = Order.builder()
+                .products(List.of(new Product("1", "Apfel")))
+                .build();
 
         //WHEN
         Order actual = shopService.addOrder(productsIds);
 
         //THEN
         assertEquals(expected.products(), actual.products());
-        assertNotNull(expected.id());
     }
 
     @Test
@@ -34,14 +35,26 @@ class ShopServiceTest {
     }
 
     @Test
+    void addOrderTest_expectTimestamp() {
+        // GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+        // WHEN
+        Order newOrder = shopService.addOrder(productsIds);
+        // THEN
+        assertNotNull(newOrder.timestamp());
+    }
+
+    @Test
     void getAllOrdersByStatusTest() {
         // GIVEN
         ShopService shopService = new ShopService();
         shopService.addOrder(List.of("1"));
         shopService.addOrder(List.of("1"));
-        List<Product> products = List.of(new Product("1", "Apfel"));
-        List<Order> expectedOrders = List.of(new Order("1", products, OrderStatus.PROCESSING), new Order("2", products, OrderStatus.PROCESSING));
-
+        List<Order> expectedOrders = List.of(
+                Order.builder().orderStatus(OrderStatus.PROCESSING).build(),
+                Order.builder().orderStatus(OrderStatus.PROCESSING).build()
+        );
         // WHEN
         List<Order> actual = shopService.getAllOrdersByStatus(OrderStatus.PROCESSING);
 
@@ -65,8 +78,5 @@ class ShopServiceTest {
 
         // THEN
         assertEquals(expected.orderStatus(), updated.orderStatus());
-
-
     }
-
 }
