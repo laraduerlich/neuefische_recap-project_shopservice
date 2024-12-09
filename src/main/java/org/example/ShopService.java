@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class ShopService {
@@ -10,14 +11,11 @@ public class ShopService {
     private ProductRepo productRepo = new ProductRepo();
 
     // Hinzufügen einer Bestellung
-    public Order addOrder(List<String> productIds) {
+    public Order addOrder(List<String> productIds) throws ProductNotAvailableException {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {
-            Product productToOrder = productRepo.getProductById(productId);
-            if (productToOrder == null) {
-                System.out.println("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
-                return null;
-            }
+            Optional<Product> databaseProductToOrder = productRepo.getProductById(productId);
+            Product productToOrder = databaseProductToOrder.orElseThrow(() -> new ProductNotAvailableException(productId));
             products.add(productToOrder);
         }
 
