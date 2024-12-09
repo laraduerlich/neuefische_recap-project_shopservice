@@ -21,8 +21,20 @@ public class ShopService {
             products.add(productToOrder);
         }
 
-        Order newOrder = new Order(UUID.randomUUID().toString(), products);
+        Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING);
 
         return orderRepo.addOrder(newOrder);
     }
+
+    // Ausgabe aller Bestellungen mit bestimmtem Status
+    public List<Order> getAllOrdersByStatus(OrderStatus status) {
+        List<Order> orders = new ArrayList<>();
+        List<Order> allOrders = orderRepo.getAllOrders();
+        allOrders.stream()
+                .filter(order -> order.orderStatus() == status)
+                .forEach(orders::add);
+        return orders;
+    }
+
+
 }
