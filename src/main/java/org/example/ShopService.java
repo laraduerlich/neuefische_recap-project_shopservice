@@ -34,5 +34,19 @@ public class ShopService {
         return orders;
     }
 
+    // Update für Order mit neuem Status
+    public Order updateOrder(String id){
+        Order order = orderRepo.getOrderById(id);
+        if (order.orderStatus() == OrderStatus.PROCESSING) {
+            Order newStatus = order.withOrderStatus(OrderStatus.IN_DELIVERY);
+            return orderRepo.addOrder(newStatus);
+        } else if (order.orderStatus() == OrderStatus.IN_DELIVERY) {
+            Order newStatus = order.withOrderStatus(OrderStatus.COMPLETED);
+            return orderRepo.addOrder(newStatus);
+        } else {
+            Order newStatus = order.withOrderStatus(OrderStatus.COMPLETED);
+            return orderRepo.addOrder(newStatus);
+        }
+    }
 
 }
