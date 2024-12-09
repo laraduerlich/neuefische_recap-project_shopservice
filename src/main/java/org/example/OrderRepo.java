@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface OrderRepo {
 
-    void addOrder(Order order);
-    void removeOrder(Order order);
+    Order addOrder(Order order);
+    void removeOrder(String id);
     List<Order> getAllOrders();
-    Order getSingleOrder(int orderId);
+    Order getOrderById(String id);
 }

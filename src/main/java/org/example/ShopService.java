@@ -1,21 +1,28 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class ShopService {
     // Eigenschaft für Konstruktor
-    private OrderRepo orderRepo;
-
-    // Konstruktor, der Interface OrderRepo akzeptiert
-    public ShopService(OrderRepo orderRepo) {
-        this.orderRepo = orderRepo;
-    }
+    private OrderRepo orderRepo = new OrderMapRepo();
+    private ProductRepo productRepo = new ProductRepo();
 
     // Hinzufügen einer Bestellung
-    public Order placeOrder(int orderId, Product product) {
-        if (ProductRepo.containsProduct(product)) {
-            return new Order(orderId, product);
-        } else {
-            System.out.println("Product not available");
-            return null;
+    public Order addOrder(List<String> productIds) {
+        List<Product> products = new ArrayList<>();
+        for (String productId : productIds) {
+            Product productToOrder = productRepo.getProductById(productId);
+            if (productToOrder == null) {
+                System.out.println("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
+                return null;
+            }
+            products.add(productToOrder);
         }
+
+        Order newOrder = new Order(UUID.randomUUID().toString(), products);
+
+        return orderRepo.addOrder(newOrder);
     }
 }

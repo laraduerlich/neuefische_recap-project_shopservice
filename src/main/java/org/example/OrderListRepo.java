@@ -6,16 +6,22 @@ import java.util.Objects;
 
 public class OrderListRepo implements OrderRepo {
     // Liste wird erstellt
-    List<Order> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
     // Hinzufügen von Bestellung
-    public void addOrder(Order order) {
-        orders.add(order);
+    public Order addOrder(Order newOrder) {
+        orders.add(newOrder);
+        return newOrder;
     }
 
     // Entfernen von Bestellung
-    public void removeOrder(Order order) {
-        orders.remove(order);
+    public void removeOrder(String id) {
+        for (Order order : orders) {
+            if (order.id().equals(id)) {
+                orders.remove(order);
+                return;
+            }
+        }
     }
 
     // Ausgabe von allen Bestellungen
@@ -24,8 +30,13 @@ public class OrderListRepo implements OrderRepo {
     }
 
     // Ausgabe von einer Bestellung
-    public Order getSingleOrder(int orderId) {
-        return orders.get(orderId);
+    public Order getOrderById(String id) {
+        for (Order order : orders) {
+            if (order.id().equals(id)) {
+                return order;
+            }
+        }
+        return null;
     }
 
 

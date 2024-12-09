@@ -9,17 +9,18 @@ import java.util.Map;
 public class OrderMapRepo implements OrderRepo {
 
     // Erstellung von Map
-    private Map<Integer, Order> orders = new HashMap<>();
+    private Map<String, Order> orders = new HashMap<>();
 
     // Methoden des Interfaces werden überschrieben
     @Override
-    public void addOrder(Order order) {
-        orders.put(order.orderId(), order);
+    public Order addOrder(Order newOrder) {
+        orders.put(newOrder.id(), newOrder);
+        return newOrder;
     }
 
     @Override
-    public void removeOrder(Order order) {
-        orders.remove(order.orderId());
+    public void removeOrder(String id) {
+        orders.remove(id);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class OrderMapRepo implements OrderRepo {
     }
 
     @Override
-    public Order getSingleOrder(int orderId) {
-        return orders.get(orderId);
+    public Order getOrderById(String id) {
+        return orders.get(id);
     }
 }

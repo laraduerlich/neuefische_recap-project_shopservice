@@ -6,21 +6,37 @@ import java.util.Objects;
 
 public class ProductRepo {
     // Erstellung der Produkt Liste
-    static List<Product> products = new ArrayList<>();
+    private List<Product> products;
+
+    public ProductRepo() {
+        products = new ArrayList<>();
+        products.add(new Product("1", "Apfel"));
+    }
 
     // Hinzufügen eines Produktes
-    public void addProduct(Product product) {
+    public Product addProduct(Product product) {
         products.add(product);
+        return product;
     }
 
     // Entfernen eines Produktes
-    public void removeProduct(Product product) {
-        products.remove(product);
+    public void removeProduct(String id) {
+        for (Product product : products) {
+            if (product.id().equals(id)) {
+                products.remove(product);
+                return;
+            }
+        }
     }
 
     // Abfrage ob ein Produkt in der Liste enthalten ist
-    public static boolean containsProduct(Product product) {
-        return products.contains(product);
+    public Product getProductById(String id) {
+        for (Product product : products) {
+            if (product.id().equals(id)) {
+                return product;
+            }
+        }
+        return null;
     }
 
     // Ausgabe alle Produkte
