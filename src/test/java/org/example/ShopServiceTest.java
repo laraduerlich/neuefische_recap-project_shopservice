@@ -13,12 +13,12 @@ class ShopServiceTest {
         //GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1");
+        Order expected = new Order("-1", List.of(new Product("1", "Apfel")), OrderStatus.PROCESSING);
 
         //WHEN
         Order actual = shopService.addOrder(productsIds);
 
         //THEN
-        Order expected = new Order("-1", List.of(new Product("1", "Apfel")), OrderStatus.PROCESSING);
         assertEquals(expected.products(), actual.products());
         assertNotNull(expected.id());
     }
@@ -47,6 +47,25 @@ class ShopServiceTest {
 
         // THEN
         assertEquals(expectedOrders.size(), actual.size());
+
+    }
+
+    @Test
+    void updateOrderTest() {
+        // GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+        Order processing = shopService.addOrder(productsIds);
+        Order expected = Order.builder()
+                .orderStatus(OrderStatus.IN_DELIVERY)
+                .build();
+
+        // WHEN
+        Order updated = shopService.updateOrder(processing.id());
+
+        // THEN
+        assertEquals(expected.orderStatus(), updated.orderStatus());
+
 
     }
 
