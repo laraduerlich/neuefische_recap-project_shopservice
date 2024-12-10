@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShopServiceTest {
 
     @Test
-    void addOrderTest() {
+    void addOrderTest() throws ProductNotAvailableException {
         //GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1");
@@ -29,13 +29,18 @@ class ShopServiceTest {
         //GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1", "2");
-
-        //THEN
-        assertThrows(ProductNotAvailableException.class, () -> shopService.addOrder(productsIds));
+        // WHEN
+        try {
+            Order actual = shopService.addOrder(productsIds);
+            fail();
+        // THEN
+        } catch (ProductNotAvailableException e) {
+            assertTrue(true);
+        }
     }
 
     @Test
-    void addOrderTest_expectTimestamp() {
+    void addOrderTest_expectTimestamp() throws ProductNotAvailableException {
         // GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1");
@@ -46,7 +51,7 @@ class ShopServiceTest {
     }
 
     @Test
-    void getAllOrdersByStatusTest() {
+    void getAllOrdersByStatusTest() throws ProductNotAvailableException {
         // GIVEN
         ShopService shopService = new ShopService();
         shopService.addOrder(List.of("1"));
@@ -64,7 +69,7 @@ class ShopServiceTest {
     }
 
     @Test
-    void updateOrderTest() {
+    void updateOrderTest() throws ProductNotAvailableException {
         // GIVEN
         ShopService shopService = new ShopService();
         List<String> productsIds = List.of("1");

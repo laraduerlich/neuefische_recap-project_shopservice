@@ -1,11 +1,16 @@
 package org.example;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Data
+@RequiredArgsConstructor
 public class ShopService {
     // Eigenschaft für Konstruktor
     private OrderRepo orderRepo = new OrderMapRepo();
@@ -16,7 +21,8 @@ public class ShopService {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {
             Optional<Product> databaseProductToOrder = productRepo.getProductById(productId);
-            Product productToOrder = databaseProductToOrder.orElseThrow(() -> new ProductNotAvailableException(productId));
+            Product productToOrder = databaseProductToOrder
+                    .orElseThrow(() -> new ProductNotAvailableException("No Product found with ID: " + productId));
             products.add(productToOrder);
         }
         Instant now = Instant.now();
